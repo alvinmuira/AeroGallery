@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AeroGallery</title>
+        <link rel="stylesheet" href="styles.css">
+        <script src="script.js" defer></script>
+    </head>
+    <body>
+        <h2>Welcome to</h2>
+        <h1>AeroGallery</h1>
+        <div id="description">
+            <p>Step into the world of flight, power, and innovation. AeroGallery brings together some of the most 
+                iconic aerospace vehicles — from cutting-edge rockets to advanced drones and legendary aircraft. 
+                Dive into the beauty, engineering, and legacy behind the machines that shape our skies and beyond.
+            </p>
+        </div>
+        <div>
+            <h4>Explore our hangar of aerospace vehicles by just a click</h4>
+            <section id="category-filter">
+                <label>
+                    <input type="checkbox" name="category" value="rockets">
+                    Rockets
+                </label><br>
+
+                <label>
+                    <input type="checkbox" name="category" value="drones">
+                    Drones
+                </label><br>
+
+                <label>
+                    <input type="checkbox" name="category" value="planes">
+                    Planes
+                </label><br>
+                <label>
+                    <input type="checkbox" name="category" value="favorites">
+                    Favorites
+                </label>
+            </section>
+        </div>
+        <div id="display_conatiner">
+            <div class="vehicle_card">
+                <div class="vehicle_image">
+                    <!-- Vehicle Image --><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Falcon_9_rollout_with_TurkmenAlem52E-MonacoSAT_to_SLC-40_%2817108097439%29.jpg/640px-Falcon_9_rollout_with_TurkmenAlem52E-MonacoSAT_to_SLC-40_%2817108097439%29.jpg">
+                </div>
+                <div>
+                    <div class="title">
+                        <h3><!-- Vehicle Name -->Falcon 9</h3>
+                    </div>
+                    <div class="button_holder">
+                        <button class="favorite_button">Add to Fav</button>
+                    </div>
+                </div>
+                <div>
+                    <div class="short_description">
+                        <p><!-- Vehicle Short Description -->A reusable two-stage rocket by SpaceX.</p>
+                    </div>
+                    <div class="button_holder">
+                        <button class="view_details_button">View Details</button>
+                    </div>
+                    <div class="long_description">
+                        <p><!-- Vehicle Long Description -->The Falcon 9 is a partially reusable launch vehicle designed and manufactured by SpaceX for reliable and safe transport of satellites and cargo into orbit. It features reusability in its first stage which drastically reduces the cost of space missions.</p>
+                    </div>
+                </div>
+                    
+            </div>
+        </div>
+        <div id="rating_form">
+            <form id="rating-form">
+                <label for="experience-rating">How would you rate your experience?<br>On a scale of (1-10)</label><br>                  
+                <input type="number" id="experience-rating" name="rating" min="1" max="10" required>               
+                <br><br>
+                <button type="submit">Submit</button>
+            </form>
+            <section id="thank-you-message" >
+                <h2>Thank You!</h2>
+                <p>We appreciate you taking the time to rate your experience.</p>
+            </section>
+
+        </div>
+        <footer>
+            <p>&copy; 2025 AeroGallery. All rights reserved.</p>
+        </footer>
+    </body>
+</html>
