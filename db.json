@@ -1,5 +1,5 @@
 {
-  "content": {
+  
     "rockets": [
       {
         "id": 1,
@@ -239,7 +239,7 @@
         "img_url2": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/De_Havilland_Canada_DHC-6-300_Twin_Otter%2C_Air_Guyane_AN0056552.jpg/640px-De_Havilland_Canada_DHC-6-300_Twin_Otter%2C_Air_Guyane_AN0056552.jpg"
         }
     ],
-    "favorites": []
-  },
+    "favorites": [],
+  
   "rating": []
 }
