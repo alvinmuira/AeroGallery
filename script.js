@@ -75,10 +75,3 @@ function display(itemHolder) {
             });
         })
 }
-// vehicleImage.addEventListener('mouseover', (e) => {
-//     const vehicleCard = e.target.closest('.vehicle_card');
-//     if (vehicleCard) {
-//         const img = vehicleCard.querySelector('.vehicle_image img');
-//         img.src = img.src.replace('img_url1', 'img_url2');
-//     }
-// });
