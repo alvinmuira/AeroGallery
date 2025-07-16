@@ -8,7 +8,7 @@ rockets.addEventListener('change', (e) => {
     checkboxHandler(e, itemHolder);
 });
 drones.addEventListener('change', (e) => {
-    itemHolder = `drones`
+    itemHolder = 'drones';
     checkboxHandler(e, itemHolder)   
 });
 planes.addEventListener('change', (e) => {
@@ -23,16 +23,16 @@ function checkboxHandler(e, itemHolder) {
     }
 }
 function clearDisplay(itemHolder) {
-    const container = document.querySelector('#display_conatiner');
-        const cardsToRemove = container.querySelectorAll(`.vehicle_card[data-category="${itemHolder}"]`);
-        cardsToRemove.forEach(card => card.remove());
+    const container = document.querySelector('#display_container');
+    const cardsToRemove = container.querySelectorAll(`.vehicle_card[data-category="${itemHolder}"]`);
+    cardsToRemove.forEach(card => card.remove());
 }
 function display(itemHolder) {
     fetch(`http://localhost:3000/${itemHolder}`)
         .then(response => response.json())
         .then(rocket => {
             rocket.forEach(item => {
-                const container = document.querySelector('#display_conatiner');
+                const container = document.querySelector('#display_container');
                 const card = document.createElement('div');
                 card.className = 'vehicle_card';
                 card.dataset.category = itemHolder;
@@ -61,6 +61,24 @@ function display(itemHolder) {
                 </div>
                 `;
                 container.appendChild(card);
+                const image = card.querySelector('img');
+                image.addEventListener('mouseover', () => {
+                    setTimeout(() => {
+                        image.src = item.img_url2;
+                    }, 300);
+                });
+                image.addEventListener('mouseout', () => {
+                    setTimeout(() => {
+                        image.src = item.img_url1;
+                    }, 1000);
+                });
             });
         })
 }
+// vehicleImage.addEventListener('mouseover', (e) => {
+//     const vehicleCard = e.target.closest('.vehicle_card');
+//     if (vehicleCard) {
+//         const img = vehicleCard.querySelector('.vehicle_image img');
+//         img.src = img.src.replace('img_url1', 'img_url2');
+//     }
+// });
