@@ -83,13 +83,38 @@ function display(itemHolder) {
                         viewDetailsButton.textContent = 'View Details';
                     }
                 });
+                const favoriteButton = card.querySelector('.favorite_button');
+                favoriteButton.addEventListener('click', () => {
+                    const requiredData = {
+                        title: item.title,
+                        img_url1: item.img_url1,
+                        img_url2: item.img_url2,
+                        short_description: item.short_description,
+                        detailed_description: item.detailed_description
+                    }
+                    if (favoriteButton.textContent === 'Add to Fav') {
+                        fetch(`http://localhost:3000/favorites`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(requiredData)
+                        })
+                        .then(response => response.json())
+                        .then(() => {
+                            favoriteButton.textContent = 'Remove from Fav';
+                        });
+                    } else {
+                        favoriteButton.textContent = 'Add to Fav';
+                    }
+                });
             });
         })
 }
 const form = document.querySelector('#rating-form');
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    let rating = document.querySelector('#experience-rating').value;
+    const rating = document.querySelector('#experience-rating').value;
     fetch(`http://localhost:3000/rating`,
         {
             method: 'POST',
@@ -106,7 +131,3 @@ form.addEventListener('submit', (event) => {
         form.style.display = 'none';
     })     
     });
-
-
-
-
