@@ -55,12 +55,12 @@ function display(itemHolder) {
                     <div class="button_holder_details">
                         <button class="view_details_button">View Details</button>
                     </div>
-                    <div class="long_description">
+                    <div class="long_description" style="display: none;">
                         <p><!-- Vehicle Long Description -->${item.detailed_description}</p>
                     </div>
                 </div>
                 `;
-                container.appendChild(card);
+                container.appendChild(card);               
                 const image = card.querySelector('img');
                 image.addEventListener('mouseover', () => {
                     setTimeout(() => {
@@ -72,6 +72,18 @@ function display(itemHolder) {
                         image.src = item.img_url1;
                     }, 1000);
                 });
+                const viewDetailsButton = card.querySelector('.view_details_button');
+                viewDetailsButton.addEventListener('click', () => {
+                    const detailedDescription = card.querySelector('.long_description');
+                    if (detailedDescription.style.display === 'none') {
+                        detailedDescription.style.display = 'block';
+                        viewDetailsButton.textContent = 'Hide Details';
+                    } else {
+                        detailedDescription.style.display = 'none';
+                        viewDetailsButton.textContent = 'View Details';
+                    }
+                });
             });
         })
 }
+
