@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {});
+// document.addEventListener('DOMContentLoaded', () => {});
 const rockets = document.querySelector('#category-filter input[type="checkbox"][value="rockets"]');
 const drones = document.querySelector('#category-filter input[type="checkbox"][value="drones"]');
 const planes = document.querySelector('#category-filter input[type="checkbox"][value="planes"]');
@@ -73,8 +73,8 @@ function display(itemHolder) {
                     }, 1000);
                 });
                 const viewDetailsButton = card.querySelector('.view_details_button');
-                viewDetailsButton.addEventListener('click', () => {
-                    const detailedDescription = card.querySelector('.long_description');
+                viewDetailsButton.addEventListener('click', () => {                   
+                    const detailedDescription = card.querySelector('.long_description');     
                     if (detailedDescription.style.display === 'none') {
                         detailedDescription.style.display = 'block';
                         viewDetailsButton.textContent = 'Hide Details';
@@ -86,4 +86,27 @@ function display(itemHolder) {
             });
         })
 }
+const form = document.querySelector('#rating-form');
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    let rating = document.querySelector('#experience-rating').value;
+    fetch(`http://localhost:3000/rating`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ rate: rating })
+        }
+    )
+    .then(response => response.json())
+    .then(()=> {
+        const ratingMessage = document.querySelector('#thank-you-message');
+        ratingMessage.style.display = 'block';
+        form.style.display = 'none';
+    })     
+    });
+
+
+
 
