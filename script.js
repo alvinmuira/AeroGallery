@@ -1,8 +1,11 @@
-// document.addEventListener('DOMContentLoaded', () => {});
+// Javascript code
+document.addEventListener('DOMContentLoaded', () => {
+// Accessing the category filter checkboxes
 const rockets = document.querySelector('#category-filter input[type="checkbox"][value="rockets"]');
 const drones = document.querySelector('#category-filter input[type="checkbox"][value="drones"]');
 const planes = document.querySelector('#category-filter input[type="checkbox"][value="planes"]');
-let itemHolder = '';
+let itemHolder = '';   //Holds the the object name to be accessed in the server
+// Adding event listeners to the checkboxes
 rockets.addEventListener('change', (e) => {
     itemHolder = 'rockets';
     checkboxHandler(e, itemHolder);
@@ -15,6 +18,7 @@ planes.addEventListener('change', (e) => {
     itemHolder = `planes`
     checkboxHandler(e, itemHolder)
 });
+// Function to handle checkbox changes
 function checkboxHandler(e, itemHolder) {
     if (e.target.checked) {
         display(itemHolder);
@@ -22,20 +26,24 @@ function checkboxHandler(e, itemHolder) {
         clearDisplay(itemHolder)
     }
 }
+// Function to clear the display of vehicles based on the category
 function clearDisplay(itemHolder) {
     const container = document.querySelector('#display_container');
     const cardsToRemove = container.querySelectorAll(`.vehicle_card[data-category="${itemHolder}"]`);
     cardsToRemove.forEach(card => card.remove());
 }
+// Function to fetch and display vehicles based on the selected category
 function display(itemHolder) {
-    fetch(`http://localhost:3000/${itemHolder}`)
+    fetch(`http://localhost:3000/${itemHolder}`)  // Fetching data from the server
         .then(response => response.json())
         .then(rocket => {
+            // Looping through the fetched data and creating vehicle cards
             rocket.forEach(item => {
-                const container = document.querySelector('#display_container');
-                const card = document.createElement('div');
+                const container = document.querySelector('#display_container'); // Selecting the display container
+                const card = document.createElement('div');  // Creating a new div for each vehicle card
                 card.className = 'vehicle_card';
                 card.dataset.category = itemHolder;
+                // Setting the inner HTML of the card with vehicle details
                 card.innerHTML = `
                     <div class="vehicle_image">
                     <!-- Vehicle Image --><img src="${item.img_url1}" >
@@ -60,21 +68,25 @@ function display(itemHolder) {
                     </div>
                 </div>
                 `;
-                container.appendChild(card);               
-                const image = card.querySelector('img');
+                container.appendChild(card);   // Appending the card to the display container            
+                const image = card.querySelector('img');  // Selecting the image element within the card
+                // Adding event listeners for mouseover and mouseout to change the image source
+                // Mouseover
                 image.addEventListener('mouseover', () => {
                     setTimeout(() => {
                         image.src = item.img_url2;
                     }, 300);
                 });
+                // Mouseout
                 image.addEventListener('mouseout', () => {
                     setTimeout(() => {
                         image.src = item.img_url1;
                     }, 1000);
                 });
-                const viewDetailsButton = card.querySelector('.view_details_button');
+                const viewDetailsButton = card.querySelector('.view_details_button');  // Selecting the view details button
+                // Adding event listener to toggle the display of detailed description
                 viewDetailsButton.addEventListener('click', () => {                   
-                    const detailedDescription = card.querySelector('.long_description');     
+                    const detailedDescription = card.querySelector('.long_description');  // Selecting the detailed description element   
                     if (detailedDescription.style.display === 'none') {
                         detailedDescription.style.display = 'block';
                         viewDetailsButton.textContent = 'Hide Details';
@@ -83,9 +95,11 @@ function display(itemHolder) {
                         viewDetailsButton.textContent = 'View Details';
                     }
                 });
-                const favoriteButton = card.querySelector('.favorite_button');
-                let favoriteId = undefined;
+                const favoriteButton = card.querySelector('.favorite_button');  // Selecting the favorite button
+                let favoriteId = undefined;  // Variable to hold the favorite ID
+                // Fetching favorites to check if the item is already favorited
                 favoriteButton.addEventListener('click', () => {
+                    // Data to be sent to the server when adding/removing from favorites
                     const requiredData = {
                         title: item.title,
                         img_url1: item.img_url1,
@@ -93,6 +107,7 @@ function display(itemHolder) {
                         short_description: item.short_description,
                         detailed_description: item.detailed_description
                     }
+                    // If the button text is 'Add to Fav', send a POST request to add to favorites
                     if (favoriteButton.textContent === 'Add to Fav') {
                         fetch(`http://localhost:3000/favorites`, {
                             method: 'POST',
@@ -106,7 +121,7 @@ function display(itemHolder) {
                             favoriteId = data.id;
                             favoriteButton.textContent = 'Remove from Fav';
                         });
-                    } else {                      
+                    } else {      // If the button text is 'Remove from Fav', send a DELETE request to remove from favorites                 
                         fetch(`http://localhost:3000/favorites/${favoriteId}`, {
                             method: 'DELETE'
                         })
@@ -118,7 +133,8 @@ function display(itemHolder) {
             });
         })
 }
-const form = document.querySelector('#rating-form');
+const form = document.querySelector('#rating-form');  // Selecting the rating form
+// Displaying the rating form when the page loads
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     const rating = document.querySelector('#experience-rating').value;
@@ -138,3 +154,4 @@ form.addEventListener('submit', (event) => {
         form.style.display = 'none';
     })     
     });
+});
