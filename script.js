@@ -34,7 +34,7 @@ function clearDisplay(itemHolder) {
 }
 // Function to fetch and display vehicles based on the selected category
 function display(itemHolder) {
-    fetch(`http://localhost:3000/${itemHolder}`)  // Fetching data from the server
+    fetch(`https://aerogallery.onrender.com/${itemHolder}`)  // Fetching data from the server
         .then(response => response.json())
         .then(rocket => {
             // Looping through the fetched data and creating vehicle cards
@@ -109,7 +109,7 @@ function display(itemHolder) {
                     }
                     // If the button text is 'Add to Fav', send a POST request to add to favorites
                     if (favoriteButton.textContent === 'Add to Fav') {
-                        fetch(`http://localhost:3000/favorites`, {
+                        fetch(`https://aerogallery.onrender.com/favorites`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -122,7 +122,7 @@ function display(itemHolder) {
                             favoriteButton.textContent = 'Remove from Fav';
                         });
                     } else {      // If the button text is 'Remove from Fav', send a DELETE request to remove from favorites                 
-                        fetch(`http://localhost:3000/favorites/${favoriteId}`, {
+                        fetch(`https://aerogallery.onrender.com/favorites/${favoriteId}`, {
                             method: 'DELETE'
                         })
                         .then(() => {
@@ -138,7 +138,7 @@ const form = document.querySelector('#rating-form');  // Selecting the rating fo
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     const rating = document.querySelector('#experience-rating').value;
-    fetch(`http://localhost:3000/rating`,
+    fetch(`https://aerogallery.onrender.com/rating`,
         {
             method: 'POST',
             headers: {
