@@ -9,7 +9,7 @@ rockets.addEventListener('change', (e) => {
 });
 drones.addEventListener('change', (e) => {
     itemHolder = 'drones';
-    checkboxHandler(e, itemHolder)   
+    checkboxHandler(e, itemHolder);
 });
 planes.addEventListener('change', (e) => {
     itemHolder = `planes`
@@ -84,6 +84,7 @@ function display(itemHolder) {
                     }
                 });
                 const favoriteButton = card.querySelector('.favorite_button');
+                let favoriteId = undefined;
                 favoriteButton.addEventListener('click', () => {
                     const requiredData = {
                         title: item.title,
@@ -101,11 +102,17 @@ function display(itemHolder) {
                             body: JSON.stringify(requiredData)
                         })
                         .then(response => response.json())
-                        .then(() => {
+                        .then(data => {
+                            favoriteId = data.id;
                             favoriteButton.textContent = 'Remove from Fav';
                         });
-                    } else {
-                        favoriteButton.textContent = 'Add to Fav';
+                    } else {                      
+                        fetch(`http://localhost:3000/favorites/${favoriteId}`, {
+                            method: 'DELETE'
+                        })
+                        .then(() => {
+                            favoriteButton.textContent = 'Add to Fav';
+                        })
                     }
                 });
             });
